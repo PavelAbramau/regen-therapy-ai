@@ -1,0 +1,12 @@
+# Python environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Heavy data and weights
+wound-cnn-clearer/data/
+wound-cnn-clearer/weights/
+
+# OS junk
+.DS_Store
