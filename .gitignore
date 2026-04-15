@@ -9,3 +9,12 @@ __pycache__/
 .DS_Store
 wound-cnn-clearer/data/
 wound-cnn-clearer/weights/
+
+
+
+
+
+computear-pipeline/data_test/
+computear-pipeline/results_test/
+computear-pipeline/data/data/
+computear-pipeline/data/results/
