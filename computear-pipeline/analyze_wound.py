@@ -1,6 +1,6 @@
 import os
 import argparse
-import glob
+import uuid
 import cv2
 import numpy as np
 import pandas as pd
@@ -183,11 +183,15 @@ def _draw_dashed_line_bgr(img_bgr, p0, p1, color, thickness=2, dash_len=12, gap_
         draw = not draw
 
 
-def process_image(img_path, model_seg, model_pose, out_dir, rel_dir):
+def process_image(img_path, model_seg, model_pose, out_dir):
     img_name = os.path.basename(img_path)
+    img_stem = os.path.splitext(img_name)[0]
+    status = "ok"
     
     # Load correctly
     img_bgr = cv2.imread(img_path)
+    if img_bgr is None:
+        raise ValueError(f"Unable to read image: {img_path}")
     img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
     
     # Run model A (segmentation): wound mask
@@ -195,35 +199,38 @@ def process_image(img_path, model_seg, model_pose, out_dir, rel_dir):
     # Run model B (pose): ear keypoints
     results_pose = model_pose(img_bgr, conf=0.25, verbose=False)[0]
 
-    if results_seg.masks is None:
-        print(f"[{img_name}] No segmentation masks detected.")
-        return None
-
-    classes = results_seg.boxes.cls.cpu().numpy()
-    names = results_seg.names
-    masks_xy = results_seg.masks.xy
-
     polygons = {}
-    for cls_id, mask_coords in zip(classes, masks_xy):
-        class_name = names[int(cls_id)].lower()
-        if len(mask_coords) >= 3: 
-            poly = Polygon(mask_coords)
-            if class_name not in polygons or poly.area > polygons[class_name].area:
-                polygons[class_name] = poly
+    if results_seg.masks is not None:
+        classes = results_seg.boxes.cls.cpu().numpy()
+        names = results_seg.names
+        masks_xy = results_seg.masks.xy
+        for cls_id, mask_coords in zip(classes, masks_xy):
+            class_name = names[int(cls_id)].lower()
+            if len(mask_coords) >= 3:
+                poly = Polygon(mask_coords)
+                if class_name not in polygons or poly.area > polygons[class_name].area:
+                    polygons[class_name] = poly
+    else:
+        status = "no_masks"
+        print(f"[{img_name}] No segmentation masks detected.")
 
-    if 'wound' not in polygons:
+    wound_poly = polygons.get('wound')
+    wound_area_px = wound_poly.area if wound_poly is not None else None
+    if wound_poly is None and status == "ok":
+        status = "no_wound"
         print(f"[{img_name}] No wound detected.")
-        return None
-
-    wound_poly = polygons['wound']
-    wound_area_px = wound_poly.area
     
     # Ruler Call
     px_to_mm_ratio = calibrate_ruler(img_rgb)
 
     # Geometry Call
     geom_data = None
-    if results_pose.keypoints is not None and len(results_pose.keypoints.xy) > 0:
+    if (
+        wound_poly is not None
+        and 'ear' in polygons
+        and results_pose.keypoints is not None
+        and len(results_pose.keypoints.xy) > 0
+    ):
         geom_data = calculate_regions_and_distances(
             results_pose.keypoints.xy[0].cpu().numpy(),
             wound_poly,
@@ -231,11 +238,12 @@ def process_image(img_path, model_seg, model_pose, out_dir, rel_dir):
         )
 
     # --- DRAWING VISUALIZATIONS ---
-    pts_wound = np.array(wound_poly.exterior.coords, dtype=np.int32).reshape((-1, 1, 2))
-    overlay = img_bgr.copy()
-    cv2.fillPoly(overlay, [pts_wound], (255, 0, 0))
-    img_bgr = cv2.addWeighted(overlay, 0.5, img_bgr, 0.5, 0)
-    cv2.polylines(img_bgr, [pts_wound], isClosed=True, color=(255, 0, 0), thickness=5)
+    if wound_poly is not None:
+        pts_wound = np.array(wound_poly.exterior.coords, dtype=np.int32).reshape((-1, 1, 2))
+        overlay = img_bgr.copy()
+        cv2.fillPoly(overlay, [pts_wound], (255, 0, 0))
+        img_bgr = cv2.addWeighted(overlay, 0.5, img_bgr, 0.5, 0)
+        cv2.polylines(img_bgr, [pts_wound], isClosed=True, color=(255, 0, 0), thickness=5)
 
     # Segmented ear region visualization: semi-transparent green overlay
     if 'ear' in polygons:
@@ -307,9 +315,8 @@ def process_image(img_path, model_seg, model_pose, out_dir, rel_dir):
         cv2.putText(img_bgr, "2", (pt2[0] + 8, pt2[1] - 8), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 255), 2)
 
     # --- ONLY ONE SAVING BLOCK ---
-    save_dir = os.path.join(out_dir, rel_dir)
-    os.makedirs(save_dir, exist_ok=True)
-    out_img_path = os.path.join(save_dir, f"{os.path.splitext(img_name)[0]}_annotated.jpg")
+    os.makedirs(out_dir, exist_ok=True)
+    out_img_path = os.path.join(out_dir, f"{img_stem}_annotated.jpg")
     cv2.imwrite(out_img_path, img_bgr)
 
     def safe_round(val, digits):
@@ -337,7 +344,9 @@ def process_image(img_path, model_seg, model_pose, out_dir, rel_dir):
 
     result_dict = {
         'filename': img_name,
-        'folder_path': rel_dir,
+        'image_path': os.path.abspath(img_path),
+        'image_dir': os.path.dirname(os.path.abspath(img_path)),
+        'status': status,
         'px_to_mm_ratio': safe_round(px_to_mm_ratio, 4),
         'wound_area_px': safe_round(wound_area_px, 3),
         'wound_area_mm2': safe_round(wound_area_mm2, 3),
@@ -351,7 +360,7 @@ def process_image(img_path, model_seg, model_pose, out_dir, rel_dir):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input_dir', type=str, required=True)
+    parser.add_argument('--image_path', type=str, required=True)
     parser.add_argument('--output_dir', type=str, required=True)
     parser.add_argument('--weights_seg', type=str, required=True)
     parser.add_argument('--weights_pose', type=str, required=True)
@@ -361,28 +370,14 @@ def main():
     model_seg = YOLO(args.weights_seg)
     model_pose = YOLO(args.weights_pose)
     
-    image_paths = []
-    extensions = ('*.jpg', '*.jpeg', '*.png', '*.JPG', '*.JPEG', '*.PNG')
-    for ext in extensions:
-        search_pattern = os.path.join(args.input_dir, '**', ext)
-        image_paths.extend(glob.glob(search_pattern, recursive=True))
+    print(f"Processing image: {args.image_path}")
+    result = process_image(args.image_path, model_seg, model_pose, args.output_dir)
 
-    print(f"Found {len(image_paths)} images. Starting pipeline...")
-    
-    all_results = []
-    for img_path in image_paths:
-        rel_dir = os.path.relpath(os.path.dirname(img_path), args.input_dir)
-        res = process_image(img_path, model_seg, model_pose, args.output_dir, rel_dir)
-        if res:
-            all_results.append(res)
-            
-    if all_results:
-        df = pd.DataFrame(all_results)
-        csv_path = os.path.join(args.output_dir, "master_results.csv")
-        df.to_csv(csv_path, index=False)
-        print(f"SUCCESS! Processed {len(all_results)} images.")
-    else:
-        print("No valid results were generated.")
+    image_stem = os.path.splitext(os.path.basename(args.image_path))[0]
+    unique_suffix = uuid.uuid4().hex[:8]
+    csv_path = os.path.join(args.output_dir, f"result_{image_stem}_{unique_suffix}.csv")
+    pd.DataFrame([result]).to_csv(csv_path, index=False)
+    print(f"SUCCESS! Wrote {csv_path}")
 
 if __name__ == "__main__":
     main()

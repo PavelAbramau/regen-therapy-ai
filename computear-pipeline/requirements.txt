@@ -1,8 +1,8 @@
-ultralytics==8.1.0
-opencv-python-headless
 numpy
+opencv-python
 pandas
 scipy
 shapely
-scikit-image
-tqdm
+ultralytics
+torch
+torchvision

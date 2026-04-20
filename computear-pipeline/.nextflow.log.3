@@ -1,0 +1,134 @@
+Apr-20 22:47:34.917 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf -with-docker 'distance-tool:latest' --input_dir data_test --output_dir results_test
+Apr-20 22:47:34.965 [main] DEBUG nextflow.cli.CmdRun - N E X T F L O W  ~  version 25.10.4
+Apr-20 22:47:34.982 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/pavelabramau/.nextflow/plugins; core-plugins: nf-amazon@3.4.4,nf-azure@1.20.2,nf-cloudcache@0.5.0,nf-codecommit@0.5.0,nf-console@1.3.0,nf-google@1.23.5,nf-k8s@1.2.2,nf-tower@1.17.5,nf-wave@1.16.1
+Apr-20 22:47:35.007 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Apr-20 22:47:35.007 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Apr-20 22:47:35.009 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Apr-20 22:47:35.019 [main] DEBUG nextflow.util.RetryConfig - Missing nextflow session - using default retry config
+Apr-20 22:47:35.134 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Apr-20 22:47:35.183 [main] DEBUG nextflow.config.ConfigBuilder - Enabling execution in Docker container as requested by command-line option `-with-docker distance-tool:latest`
+Apr-20 22:47:35.188 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Apr-20 22:47:35.189 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Apr-20 22:47:35.198 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /Users/pavelabramau/.nextflow/secrets/store.json
+Apr-20 22:47:35.199 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@365a6a43] - activable => nextflow.secret.LocalSecretsProvider@365a6a43
+Apr-20 22:47:35.200 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declaration
+Apr-20 22:47:35.214 [main] DEBUG nextflow.cli.CmdRun - Launching `main.nf` [determined_bohr] DSL2 - revision: 9ac82008ae
+Apr-20 22:47:35.250 [main] DEBUG nextflow.Session - Session UUID: 9bc42e6d-718c-4b3d-b148-c2999485bfe9
+Apr-20 22:47:35.250 [main] DEBUG nextflow.Session - Run name: determined_bohr
+Apr-20 22:47:35.251 [main] DEBUG nextflow.Session - Executor pool size: 8
+Apr-20 22:47:35.255 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Apr-20 22:47:35.258 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=24; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Apr-20 22:47:35.279 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 25.10.4 build 11173
+  Created: 10-02-2026 15:17 UTC (16:17 CEST)
+  System: Mac OS X 15.6
+  Runtime: Groovy 4.0.28 on OpenJDK 64-Bit Server VM 23.0.2+7
+  Encoding: UTF-8 (UTF-8)
+  Process: 20804@Pavels-MacBook-Air.local [127.0.0.1]
+  CPUs: 8 - Mem: 16 GB (108.5 MB) - Swap: 3 GB (335.7 MB)
+Apr-20 22:47:35.286 [main] DEBUG nextflow.Session - Work-dir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work [Mac OS X]
+Apr-20 22:47:35.298 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Apr-20 22:47:35.302 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
+Apr-20 22:47:35.303 [main] DEBUG nextflow.Session - Observer factory (v2): DefaultObserverFactory
+Apr-20 22:47:35.321 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Apr-20 22:47:35.326 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 9; maxThreads: 1000
+Apr-20 22:47:35.358 [main] DEBUG nextflow.Session - Session start
+Apr-20 22:47:35.680 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Apr-20 22:47:35.742 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Apr-20 22:47:35.743 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Apr-20 22:47:35.747 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Apr-20 22:47:35.750 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=8; memory=16 GB; capacity=8; pollInterval=100ms; dumpInterval=5m
+Apr-20 22:47:35.751 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Apr-20 22:47:35.767 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'ANALYZE_IMAGES': maxForks=0; fair=false; array=0
+Apr-20 22:47:35.794 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Apr-20 22:47:35.794 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Apr-20 22:47:35.794 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'MERGE_RESULTS': maxForks=0; fair=false; array=0
+Apr-20 22:47:35.795 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: ANALYZE_IMAGES, MERGE_RESULTS
+Apr-20 22:47:35.796 [main] DEBUG nextflow.Session - Igniting dataflow network (5)
+Apr-20 22:47:35.798 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: data_test/; pattern: *.{jpg,JPG,png,PNG,jpeg,JPEG}; options: [checkIfExists:true]
+Apr-20 22:47:35.799 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > ANALYZE_IMAGES
+Apr-20 22:47:35.799 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MERGE_RESULTS
+Apr-20 22:47:35.800 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_bb48313ce940132d: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/main.nf
+Apr-20 22:47:35.800 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Apr-20 22:47:35.800 [main] DEBUG nextflow.Session - Session await
+Apr-20 22:47:35.899 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.900 [Task submitter] INFO  nextflow.Session - [fc/aebd9f] Submitted process > ANALYZE_IMAGES (6)
+Apr-20 22:47:35.906 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.906 [Task submitter] INFO  nextflow.Session - [b7/69c197] Submitted process > ANALYZE_IMAGES (5)
+Apr-20 22:47:35.911 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.912 [Task submitter] INFO  nextflow.Session - [b6/a3cb31] Submitted process > ANALYZE_IMAGES (1)
+Apr-20 22:47:35.917 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.917 [Task submitter] INFO  nextflow.Session - [79/d7c85e] Submitted process > ANALYZE_IMAGES (4)
+Apr-20 22:47:35.923 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.923 [Task submitter] INFO  nextflow.Session - [ab/380703] Submitted process > ANALYZE_IMAGES (7)
+Apr-20 22:47:35.926 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.927 [Task submitter] INFO  nextflow.Session - [c1/9bed55] Submitted process > ANALYZE_IMAGES (8)
+Apr-20 22:47:35.931 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.933 [Task submitter] INFO  nextflow.Session - [18/efa0f3] Submitted process > ANALYZE_IMAGES (11)
+Apr-20 22:47:35.937 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:35.938 [Task submitter] INFO  nextflow.Session - [e6/5e2940] Submitted process > ANALYZE_IMAGES (2)
+Apr-20 22:47:44.595 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 5; name: ANALYZE_IMAGES (5); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/b7/69c197c3c89b7eb998561e0d10beb3]
+Apr-20 22:47:44.596 [Task monitor] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'TaskFinalizer' minSize=10; maxSize=24; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Apr-20 22:47:44.603 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:44.603 [Task submitter] INFO  nextflow.Session - [08/38fe8c] Submitted process > ANALYZE_IMAGES (3)
+Apr-20 22:47:44.629 [TaskFinalizer-1] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'PublishDir' minSize=10; maxSize=24; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Apr-20 22:47:44.699 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: ANALYZE_IMAGES (2); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/e6/5e294045236afc662ef333e4f0db5b]
+Apr-20 22:47:44.705 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:44.711 [Task submitter] INFO  nextflow.Session - [80/026fd4] Submitted process > ANALYZE_IMAGES (9)
+Apr-20 22:47:45.051 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 4; name: ANALYZE_IMAGES (4); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/79/d7c85e95b513727daeb24eb1da63a6]
+Apr-20 22:47:45.055 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:45.055 [Task submitter] INFO  nextflow.Session - [15/4fbad4] Submitted process > ANALYZE_IMAGES (10)
+Apr-20 22:47:45.100 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 8; name: ANALYZE_IMAGES (8); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/c1/9bed55dcfcd43950e93cb4496c1a99]
+Apr-20 22:47:45.104 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:45.104 [Task submitter] INFO  nextflow.Session - [21/9217d8] Submitted process > ANALYZE_IMAGES (12)
+Apr-20 22:47:45.165 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 6; name: ANALYZE_IMAGES (6); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/fc/aebd9fd55f3459aa8007780cc538aa]
+Apr-20 22:47:45.169 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:45.169 [Task submitter] INFO  nextflow.Session - [67/1e46b3] Submitted process > ANALYZE_IMAGES (14)
+Apr-20 22:47:45.223 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: ANALYZE_IMAGES (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/b6/a3cb31d8fbfde4a8f9991009a6a188]
+Apr-20 22:47:45.227 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:45.227 [Task submitter] INFO  nextflow.Session - [01/613e95] Submitted process > ANALYZE_IMAGES (13)
+Apr-20 22:47:46.063 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 7; name: ANALYZE_IMAGES (7); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/ab/3807032b18b5165ffc00fc535ece5e]
+Apr-20 22:47:46.069 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:46.069 [Task submitter] INFO  nextflow.Session - [73/aa7778] Submitted process > ANALYZE_IMAGES (15)
+Apr-20 22:47:46.854 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 11; name: ANALYZE_IMAGES (11); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/18/efa0f31802662da0d4d8cd1b2a3cb7]
+Apr-20 22:47:46.859 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:46.859 [Task submitter] INFO  nextflow.Session - [30/759a00] Submitted process > ANALYZE_IMAGES (16)
+Apr-20 22:47:54.257 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 10; name: ANALYZE_IMAGES (10); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/15/4fbad4c75fe2a28b117babc494342b]
+Apr-20 22:47:54.269 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:54.269 [Task submitter] INFO  nextflow.Session - [08/d4873f] Submitted process > ANALYZE_IMAGES (17)
+Apr-20 22:47:54.314 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: ANALYZE_IMAGES (3); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/08/38fe8c75b7a54b2867d7b4998317b0]
+Apr-20 22:47:54.318 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:54.318 [Task submitter] INFO  nextflow.Session - [98/80f1a5] Submitted process > ANALYZE_IMAGES (18)
+Apr-20 22:47:54.562 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 9; name: ANALYZE_IMAGES (9); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/80/026fd402017dc864b1bbc437fa5b1d]
+Apr-20 22:47:54.573 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:54.575 [Task submitter] INFO  nextflow.Session - [23/e4ee3f] Submitted process > ANALYZE_IMAGES (19)
+Apr-20 22:47:54.743 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 12; name: ANALYZE_IMAGES (12); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/21/9217d8811e7af05db3bf6992c42f83]
+Apr-20 22:47:54.749 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:54.749 [Task submitter] INFO  nextflow.Session - [84/838c69] Submitted process > ANALYZE_IMAGES (20)
+Apr-20 22:47:54.933 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 15; name: ANALYZE_IMAGES (15); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/73/aa7778b2cd33125c3b67a3e945e346]
+Apr-20 22:47:54.938 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:54.939 [Task submitter] INFO  nextflow.Session - [75/87d2ab] Submitted process > ANALYZE_IMAGES (21)
+Apr-20 22:47:54.994 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 13; name: ANALYZE_IMAGES (13); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/01/613e95f93a819fa587ac3dbc042e61]
+Apr-20 22:47:55.005 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:47:55.006 [Task submitter] INFO  nextflow.Session - [6b/332652] Submitted process > ANALYZE_IMAGES (22)
+Apr-20 22:47:55.944 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 14; name: ANALYZE_IMAGES (14); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/67/1e46b3146c36dc28f9732b7f503bb3]
+Apr-20 22:47:56.647 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 16; name: ANALYZE_IMAGES (16); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/30/759a00237771f5d7017b2b89dae60a]
+Apr-20 22:48:02.341 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 17; name: ANALYZE_IMAGES (17); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/08/d4873fe5a06a74384c4c7cfb4e3461]
+Apr-20 22:48:02.372 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 19; name: ANALYZE_IMAGES (19); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/23/e4ee3f4a18b5916b1bbcbed033c301]
+Apr-20 22:48:02.691 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 20; name: ANALYZE_IMAGES (20); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/84/838c69094092387fcb448366c03f70]
+Apr-20 22:48:02.791 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 18; name: ANALYZE_IMAGES (18); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/98/80f1a553d978438acd4950ce67cd6e]
+Apr-20 22:48:02.923 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 22; name: ANALYZE_IMAGES (22); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/6b/332652d900a27d08ab9d30d5b53992]
+Apr-20 22:48:03.246 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 21; name: ANALYZE_IMAGES (21); status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/75/87d2ab0abcdeb7578099f8fa7f4873]
+Apr-20 22:48:03.267 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Apr-20 22:48:03.267 [Task submitter] INFO  nextflow.Session - [ab/c51548] Submitted process > MERGE_RESULTS
+Apr-20 22:48:03.906 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 23; name: MERGE_RESULTS; status: COMPLETED; exit: 0; error: -; workDir: /Users/pavelabramau/Documents/regen-platform/computear-pipeline/work/ab/c51548a08072398c93d73c1cb2bee3]
+Apr-20 22:48:03.910 [main] DEBUG nextflow.Session - Session await > all processes finished
+Apr-20 22:48:04.012 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+Apr-20 22:48:04.012 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Apr-20 22:48:04.019 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'TaskFinalizer' shutdown completed (hard=false)
+Apr-20 22:48:04.020 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'PublishDir' shutdown completed (hard=false)
+Apr-20 22:48:04.032 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=23; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=3m 21s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=8; peakCpus=8; peakMemory=0; ]
+Apr-20 22:48:04.252 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Apr-20 22:48:04.264 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
+Apr-20 22:48:04.264 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

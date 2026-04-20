@@ -1,0 +1,9 @@
+data/
+results/
+data_test/
+results_test/
+**/*.jpg
+**/*.png
+**/*.jpeg
+.git/
+venv/

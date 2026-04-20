@@ -1,22 +1,21 @@
-# Use an official Python runtime as a parent image
+# 1. Use a clean Python image
 FROM python:3.10-slim
 
-# Install system dependencies for OpenCV and Nextflow
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    default-jre \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set the working directory in the container
+# 2. Set the working directory
 WORKDIR /app
 
-# Copy requirements and install them
+# 3. Copy only the requirements first
 COPY requirements.txt .
+
+# 4. Install the Python libraries (YOLO will sneak the bad OpenCV in here)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# 5. THE FIX: Rip out everything OpenCV-related, then cleanly install ONLY the headless version
+RUN pip uninstall -y opencv-python opencv-python-headless && \
+    pip install --no-cache-dir opencv-python-headless
+
+# 6. Copy all your code and models into the container
 COPY . .
 
-# Set default command (Nextflow will override this during execution)
-CMD ["python", "wound_segmentation_dist_v2/analyze_wound.py", "--help"]
+# 7. Set the default command
+CMD ["python", "analyze_wound.py", "--help"]

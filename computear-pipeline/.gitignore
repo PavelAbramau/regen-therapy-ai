@@ -10,3 +10,10 @@ wound-cnn-clearer/weights/
 
 # OS junk
 .DS_Store
+
+data/
+data_test/
+results_test/
+work/
+.nextflow/
+__pycache__/
