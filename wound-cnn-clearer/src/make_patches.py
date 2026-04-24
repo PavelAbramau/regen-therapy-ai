@@ -8,7 +8,7 @@ import cv2
 import numpy as np
 
 
-PATCH_SIZE = 256
+PATCH_SIZE = 512
 VAL_SPLIT = 0.2
 RANDOM_SEED = 42
 

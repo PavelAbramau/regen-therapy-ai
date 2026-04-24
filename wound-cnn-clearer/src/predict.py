@@ -88,12 +88,19 @@ def main():
         # Crop the mask back to the original image dimensions
         prob_mask = prob_mask[:orig_h, :orig_w]
         
-        # Convert probabilities to a hard binary mask (0 or 255)
-        binary_mask = (prob_mask > 0.5).astype(np.uint8) * 255
+        # 1. Create a logical mask (0 for background, 1 for wound)
+        logical_mask = (prob_mask > 0.5).astype(np.uint8)
+        
+        # 2. Expand the mask to 3 channels so it matches the RGB image
+        mask_3d = np.expand_dims(logical_mask, axis=-1)
+        
+        # 3. Multiply the original image by the mask 
+        # (original pixels stay, background becomes pure black)
+        cleaned_image = image * mask_3d
         
         # Save output
         out_name = f"cleaned_{img_path.name}"
-        cv2.imwrite(str(output_dir / out_name), binary_mask)
+        cv2.imwrite(str(output_dir / out_name), cleaned_image)
         print(f"Saved: {out_name}")
 
 if __name__ == "__main__":
