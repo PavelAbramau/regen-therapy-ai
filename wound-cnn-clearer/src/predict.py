@@ -47,7 +47,7 @@ def main():
         encoder_name="resnet34",
         encoder_weights=None,  # No need to download imagenet weights for inference
         in_channels=3,
-        classes=1,
+        classes=3,
     )
 
     # 3. Inject your trained weights
@@ -82,14 +82,13 @@ def main():
         # Inference
         with torch.no_grad():
             logits = model(input_tensor)
-            # The model outputs raw logits (because you used BCEWithLogitsLoss). We need Sigmoid.
-            prob_mask = torch.sigmoid(logits).squeeze().cpu().numpy()
+            predicted_classes = torch.argmax(logits, dim=1).squeeze().cpu().numpy()
             
         # Crop the mask back to the original image dimensions
-        prob_mask = prob_mask[:orig_h, :orig_w]
+        predicted_classes = predicted_classes[:orig_h, :orig_w]
         
-        # 1. Create a logical mask (0 for background, 1 for wound)
-        logical_mask = (prob_mask > 0.5).astype(np.uint8)
+        # 1. Keep only the class-1 pixels (wound bed)
+        logical_mask = (predicted_classes == 1).astype(np.uint8)
         
         # 2. Expand the mask to 3 channels so it matches the RGB image
         mask_3d = np.expand_dims(logical_mask, axis=-1)

@@ -18,11 +18,14 @@ BATCH_SIZE = 4  # Increase to 8 if memory allows.
 class CombinedLoss(nn.Module):
     def __init__(self) -> None:
         super().__init__()
-        self.dice = smp.losses.DiceLoss(mode="binary")
-        self.bce = nn.BCEWithLogitsLoss()
+        self.dice = smp.losses.DiceLoss(mode="multiclass")
+        self.ce = nn.CrossEntropyLoss()
 
     def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-        return self.dice(logits, targets) + self.bce(logits, targets)
+        if targets.ndim == 4 and targets.shape[1] == 1:
+            targets = targets.squeeze(1)
+        targets = targets.long()
+        return self.dice(logits, targets) + self.ce(logits, targets)
 
 
 def get_device() -> torch.device:
@@ -126,7 +129,7 @@ def main() -> None:
         encoder_name="resnet34",
         encoder_weights="imagenet",
         in_channels=3,
-        classes=1,
+        classes=3,
     ).to(device)
 
     criterion = CombinedLoss()
