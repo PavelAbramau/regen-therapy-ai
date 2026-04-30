@@ -1,0 +1,4 @@
+torch==2.8.0
+torchvision==0.23.0
+opencv-python==4.13.0.92
+git+https://github.com/facebookresearch/segment-anything.git

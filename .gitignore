@@ -1,20 +1,90 @@
-venv/
-.venv/
-bin/
-lib/
-include/
-pyvenv.cfg
+# ==========================================
+# 🧠 REGEN-OS MASTER .GITIGNORE
+# ==========================================
+
+# 1. Python & Environments
+# ------------------------------------------
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# 2. Secrets & API Keys (CRITICAL)
+# ------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+secrets.json
+
+# 3. Machine Learning Weights & Models
+# ------------------------------------------
+*.pth
+*.pt
+*.onnx
+*.h5
+*.pb
+seggpt-clearer/weights/
+weights/
+models/
+
+# 4. Data & Output (Do not track raw data or DBs)
+# ------------------------------------------
+*.tif
+*.tiff
+*.csv
+*.xlsx
+*.gpickle
+*.sqlite3
+
+# Knowledge Graph specific
+KG/data/raw/
+KG/data/graph_db/
+KG/output/
+
+# SegGPT specific
+seggpt-clearer/data/raw_targets/
+seggpt-clearer/data/predictions/
+seggpt-clearer/exp-module/data/experiment_target/
+seggpt-clearer/exp-module/data/experiment_output/
+
+# 5. OS & IDE Specific
+# ------------------------------------------
 .DS_Store
-wound-cnn-clearer/data/
-wound-cnn-clearer/weights/
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
 
-
-
-
-
-computear-pipeline/data_test/
-computear-pipeline/results_test/
-computear-pipeline/data/data/
-computear-pipeline/data/results/
+# 6. Jupyter Notebooks (Optional if you use them later)
+# ------------------------------------------
+.ipynb_checkpoints
