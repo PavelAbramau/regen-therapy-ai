@@ -10,6 +10,20 @@ __pycache__/
 wound-cnn-clearer/data/
 wound-cnn-clearer/weights/
 
+seggpt-clearer/data/
+seggpt-clearer/results/
+
+
+epi-screener/data/
+epi-screener/results/
+
+kg/output/
+kg/data/
+
+frontend/data/
+
+exp-module/data/
+exp-module/results/
 
 
 

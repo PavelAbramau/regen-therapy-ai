@@ -1,0 +1,2 @@
+[console_scripts]
+epigenetic-screen = src.main:main
