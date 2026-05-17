@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epigenetic-screen"
+version = "0.1.0"
+description = "Restartable epigenetic drug screening pipeline (RDKit, DeepChem, Vina)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "pandas>=2.0",
+  "PyYAML>=6.0",
+  "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+chem = ["rdkit"]
+admet = ["deepchem>=2.8"]
+docking = ["vina>=1.2"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+epigenetic-screen = "src.main:main"
+
+[tool.setuptools]
+packages = ["src"]
