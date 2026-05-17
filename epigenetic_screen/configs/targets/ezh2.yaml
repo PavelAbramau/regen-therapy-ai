@@ -1,0 +1,6 @@
+target_name: EZH2
+receptor_path: data/receptors/ezh2.pdbqt
+box_center: [5.5, -2.0, 18.0]
+box_size: [20.0, 20.0, 24.0]
+exhaustiveness: 20
+n_poses: 9

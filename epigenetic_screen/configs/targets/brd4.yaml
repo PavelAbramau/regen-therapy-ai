@@ -1,0 +1,6 @@
+target_name: BRD4
+receptor_path: data/receptors/brd4.pdbqt
+box_center: [22.0, 8.5, -3.0]
+box_size: [18.0, 18.0, 18.0]
+exhaustiveness: 12
+n_poses: 9

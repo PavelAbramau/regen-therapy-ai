@@ -1,34 +1,113 @@
-venv/
-.venv/
-bin/
-lib/
-include/
-pyvenv.cfg
+# ==========================================
+# 🧠 REGEN-OS MASTER .GITIGNORE
+# ==========================================
+
+# 1. Python & Environments
+# ------------------------------------------
 __pycache__/
 *.pyc
-.DS_Store
-wound-cnn-clearer/data/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+bin/
+include/
+pyvenv.cfg
+
+# 2. Secrets & API Keys (CRITICAL)
+# ------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+secrets.json
+
+# 3. Machine Learning Weights & Models
+# ------------------------------------------
+*.pth
+*.pt
+*.onnx
+*.h5
+*.pb
+weights/
+models/
+seggpt-clearer/weights/
 wound-cnn-clearer/weights/
 
-seggpt-clearer/data/
-seggpt-clearer/results/
+# 4. Data & Output (Do not track raw data or DBs)
+# ------------------------------------------
+*.tif
+*.tiff
+*.csv
+*.xlsx
+*.gpickle
+*.sqlite3
 
+# 5. OS & IDE Specific
+# ------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
 
-epi-screener/data/
-epi-screener/results/
-
+# 6. RegenOS Pipeline Specific Data & Results
+# ------------------------------------------
+KG/data/raw/
+KG/data/graph_db/
+KG/output/
 kg/output/
 kg/data/
+
+seggpt-clearer/data/raw_targets/
+seggpt-clearer/data/predictions/
+seggpt-clearer/exp-module/data/experiment_target/
+seggpt-clearer/exp-module/data/experiment_output/
+seggpt-clearer/results/
+
+wound-cnn-clearer/data/
+
+epigenetic_screen/data/
+epigenetic_screen/output/
 
 frontend/data/
 
 exp-module/data/
 exp-module/results/
 
-
-
-
 computear-pipeline/data_test/
 computear-pipeline/results_test/
 computear-pipeline/data/data/
 computear-pipeline/data/results/
+
+# 7. Jupyter Notebooks
+# ------------------------------------------
+.ipynb_checkpoints

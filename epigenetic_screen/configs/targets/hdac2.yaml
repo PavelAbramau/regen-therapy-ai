@@ -1,0 +1,6 @@
+target_name: HDAC2
+receptor_path: data/receptors/hdac2.pdbqt
+box_center: [10.0, 12.0, 15.0]
+box_size: [22.0, 22.0, 22.0]
+exhaustiveness: 16
+n_poses: 9
