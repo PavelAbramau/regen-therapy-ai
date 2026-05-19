@@ -17,3 +17,6 @@ results_test/
 work/
 .nextflow/
 __pycache__/
+
+
+token.txt
